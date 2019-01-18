@@ -212,7 +212,10 @@ const chainParams = {
 		ac_supply: 1000000000,
 		ac_end: 1,
 		ac_public: 1,
-		addnode: '37.187.225.231',
+		addnode: [
+			'37.187.225.231',
+			'217.182.129.38',
+		],
 	},
 };
 
