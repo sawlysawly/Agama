@@ -47,6 +47,7 @@ const assetChainPorts = {
   PTX: 61939,
   ZEX: 26476,
   LUMBER: 26301,
+  KSB: 21066,
 };
 
 module.exports = assetChainPorts;
