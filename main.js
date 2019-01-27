@@ -370,6 +370,7 @@ function createAppCloseWindow() {
 					argv: process.argv,
 					getAssetChainPorts: api.getAssetChainPorts,
 					startSPV: api.startSPV,
+					electrumServers: api.electrumServers,
 					startKMDNative: api.startKMDNative,
 					getCoinByPub: api.getCoinByPub,
 					resetSettings: () => { api.saveLocalAppConf(__defaultAppSettings) },
