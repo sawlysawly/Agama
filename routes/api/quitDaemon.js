@@ -27,8 +27,6 @@ module.exports = (api) => {
           if (chain &&
               !api.nativeCoindList[key.toLowerCase()] &&
               key !== 'CHIPS') {
-            api.removePubkey(chain.toLowerCase());
-
             _arg.push(`-ac_name=${chain}`);
 
             if (api.appConfig.native.dataDir.length) {
@@ -98,8 +96,6 @@ module.exports = (api) => {
 
 
       if (_chain) {
-        api.removePubkey(_chain.toLowerCase());
-
         _arg.push(`-ac_name=${_chain}`);
 
         if (api.appConfig.native.dataDir.length) {
@@ -170,28 +166,38 @@ module.exports = (api) => {
       if (req.body.mode === 'native') {
         delete api.coindInstanceRegistry[_chain ? _chain : 'komodod'];
         delete api.native.startParams[_chain ? _chain : 'komodod'];
-        
-        if (_chain) {
-          api.removePubkey(_chain.toLowerCase());
-        }
 
         const retObj = {
           msg: 'success',
-          result: 'result',
+          result: true,
         };
 
         res.end(JSON.stringify(retObj));
-      } else {
+      } else if (req.body.mode === 'spv') {
         delete api.electrumCoins[_chain.toLowerCase()];
 
         if (Object.keys(api.electrumCoins).length - 1 === 0) {
-          api.electrumCoins.auth = false;
           api.electrumKeys = {};
         }
 
         const retObj = {
           msg: 'success',
-          result: 'result',
+          result: true,
+        };
+
+        res.end(JSON.stringify(retObj));
+      } else if (req.body.mode === 'eth') {
+        delete api.eth.coins[_chain.toUpperCase()];
+        
+        if (Object.keys(api.eth.coins).length === 0) {
+          api.eth.coins = null;
+          api.eth.wallet = null;
+          api.eth.connect = null;
+        }
+
+        const retObj = {
+          msg: 'success',
+          result: true,
         };
 
         res.end(JSON.stringify(retObj));

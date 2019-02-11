@@ -8,28 +8,13 @@ module.exports = (api) => {
   api.get('/auth/status', (req, res, next) => {
     if (api.checkToken(req.query.token)) {
       let retObj;
-      let _status = false;
+      let _status = true;
+      const _electrumCoins = JSON.parse(JSON.stringify(api.electrumCoins));
+      delete _electrumCoins.auth;
 
-      if (Object.keys(api.coindInstanceRegistry).length) {
-        if (Object.keys(api.electrumCoins).length > 1 &&
-        api.electrumCoins.auth) {
-          _status = true;
-        } else if (
-          Object.keys(api.electrumCoins).length === 1 &&
-          !api.electrumCoins.auth
-        ) {
-          _status = true;
-        }
-      } else if (
-        Object.keys(api.electrumCoins).length > 1 &&
-        api.electrumCoins.auth
-      ) {
-        _status = true;
-      } else if (
-        Object.keys(api.electrumCoins).length === 1 &&
-        !Object.keys(api.coindInstanceRegistry).length
-      ) {
-        _status = true;
+      if (!api.seed &&
+          (Object.keys(_electrumCoins).length || Object.keys(api.eth.coins).length)) {
+        _status = false;
       }
 
       retObj = {
@@ -61,29 +46,6 @@ module.exports = (api) => {
 
   api.isWatchOnly = () => {
     return api.argv && api.argv.watchonly === 'override' ? false : api._isWatchOnly;
-  };
-
-  api.setPubkey = (seed, coin) => {
-    const {
-      pub,
-      pubHex,
-    } = api.seedToWif(seed, 'komodo', true);
-
-    api.staking[coin] = {
-      pub,
-      pubHex,
-    };
-
-    api.log(`pub key for ${coin} is set`, 'pubkey');
-    api.log(api.staking[coin], 'pubkey');
-  };
-
-  api.getPubkeys = () => {
-    return api.staking;
-  };
-
-  api.removePubkey = (coin) => {
-    delete api.staking[coin];
   };
 
   return api;

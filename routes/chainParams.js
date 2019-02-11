@@ -11,9 +11,10 @@ const chainParams = {
 	PANGEA: {
 		ac_supply: 999999,
 	},
-        PGT: {
+	PGT: {
 		ac_supply: 10000000,
-		-ac_end: 1,
+		ac_end: 1,
+	},
 	DEX: {
 		ac_supply: 999999,
 	},
@@ -55,25 +56,26 @@ const chainParams = {
 		ac_ccactivate: 200000,
  	},
 	KMDICE: {
-		 ac_supply: 10500000,
-                 ac_reward: 2500000000,
-                 ac_halving: 210000,
-                 ac_cc: 2,
-                 addressindex: 1,
-                 spentindex: 1,
-                 genproclimit: true
+		ac_supply: 10500000,
+		ac_reward: 2500000000,
+		ac_halving: 210000,
+		ac_cc: 2,
+		addressindex: 1,
+		spentindex: 1,
+		genproclimit: true
 	},
-        CHAIN: {
-  	         ac_supply: 999999,
-  	         addnode: '78.47.146.222',
-        },
+	CHAIN: {
+		ac_supply: 999999,
+		addnode: '78.47.146.222',
+	},
 	GLXT: {
-                ac_supply: 10000000000,
-                addnode: '13.230.224.15',
-       },
+		ac_supply: 10000000000,
+		addnode: '13.230.224.15',
+	},
 	EQL: {
-                ac_supply: 500000000,
-                addnode: '46.101.124.153',
+		ac_supply: 500000000,
+		addnode: '46.101.124.153',
+	  ac_ccactivate: 205000,
 	},
 	MNZ: {
 		ac_supply: 257142858,
@@ -97,6 +99,7 @@ const chainParams = {
 	},
 	OOT: {
 		ac_supply: 216000000,
+		ac_sapling: 5000000,
 		addnode: '174.138.107.226',
 	},
 	VOTE2018: {
@@ -116,7 +119,8 @@ const chainParams = {
 	},
 	ZILLA: {
 		ac_supply: 11000000,
-		addnode: '158.69.0.53',
+		ac_sapling: 5000000,
+		addnode: '51.68.215.104',
 	},
 	DSEC: {
 		ac_supply: 7000000,
@@ -130,17 +134,6 @@ const chainParams = {
 		ac_cc: 2,
 		ac_end: 2629800,
 		addnode: '142.93.27.180',
-		genproclimit: true,
-  },
-	CALL: {
-		ac_supply: 52500000,
-		ac_reward: 1250000000,
-		ac_end: 4200000,
-		ac_halving: 1400000,
-		addnode: [
-			'185.162.65.14',
-			'185.162.65.15',
-		],
 		genproclimit: true,
 	},
 	CCL: {
@@ -167,8 +160,8 @@ const chainParams = {
 	},
 	KOIN: {
 		ac_supply: 125000000,
-    addnode: '3.0.32.10',
-  },
+		addnode: '3.0.32.10',
+	},
 	DION: {
 		ac_supply: 3900000000,
 		ac_reward: 22260000000,
@@ -178,6 +171,43 @@ const chainParams = {
 		addnode: '51.75.124.34',
 		genproclimit: true,
 	},
+	PTX: {
+		ac_supply: 12000000,
+		ac_reward: 1500000000,
+		ac_staked: 50,
+		ac_end: 12000000,
+		addnode: '142.11.199.63',
+		genproclimit: true,
+	},
+	ZEX: {
+		ac_reward: 13000000000,
+		ac_halving: 525600,
+		ac_pubkey: '039d4a50cc70d1184e462a22edb3b66385da97cc8059196f8305c184a3e21440af',
+		ac_cc: 2,
+		ac_founders: 1,
+		addnode: '5.9.102.210',
+	},
+	SPLTEST: {
+		ac_supply: 5555555,
+		ac_reward: 10000000000000,
+		ac_cc: 2,
+		addressindex: 1,
+		spentindex: 1,
+		addnode: [
+			'54.36.126.42',
+			'94.130.224.11',
+		],
+	},
+        LUMBER: {
+                ac_algo: 'verushash',
+                ac_veruspos: 80,
+                ac_cc: 2,
+                ac_supply: 1260000,
+                ac_reward: 470000000,
+                ac_halving: 2100000,
+                addnode: '149.202.84.141',
+                genproclimit: true,
+        },
 };
 
 module.exports = chainParams;

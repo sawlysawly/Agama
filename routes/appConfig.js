@@ -41,8 +41,12 @@ const appConfig = {
       csvListtransactionsMaxLength: 1000,
       zlistreceivedbyaddress: false,
       zgetoperationresult: false,
+      zshieldcoinbase: false,
     },
     pubkey: '',
+    exchanges: {
+      coinswitchKey: '',
+    },
     // coinControl: false,
     // darkmode: false,
   },
@@ -252,12 +256,28 @@ const appConfig = {
         info: 'For maximum privacy it\'s advised to clear all traces of your outgoing z transactions including runtime data.',
         type: 'boolean',
       },
+      zshieldcoinbase: {
+        display: true,
+        displayName: 'Enable shield coinbase button',
+        info: 'A handy option if you\'re mining.',
+        type: 'boolean',
+      },
     },
     pubkey: {
       display: true,
       displayName: 'Pubkey',
       info: 'Append pubkey (-pubkey) to daemon launch params list',
       type: 'string',
+    },
+    exchanges: {
+      display: false,
+      displayName: 'Exchanges',
+      coinswitchKey: {
+        display: true,
+        displayName: 'Coinswitch API key',
+        info: 'Your personal Coinswitch API key',
+        type: 'string',
+      },
     },
     /*coinControl: {
       display: true,
