@@ -77,7 +77,6 @@ module.exports = (api) => {
     } else if (
       selection === 'REVS' ||
       selection === 'JUMRLR' ||
-      selection === 'MNZ' ||
       selection === 'BTCH' ||
       selection === 'PIRATE'
     ) {

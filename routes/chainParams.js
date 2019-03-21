@@ -82,9 +82,6 @@ const chainParams = {
 		addnode: '46.101.124.153',
 	  ac_ccactivate: 205000,
 	},
-	MNZ: {
-		ac_supply: 257142858,
-	},
 	AXO: {
 		ac_supply: 200000000,
 	},
