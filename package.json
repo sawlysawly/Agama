@@ -1,7 +1,7 @@
 {
   "name": "Agama",
   "productName": "Agama",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Agama Wallet Desktop App",
   "main": "main.js",
   "scripts": {
@@ -20,8 +20,7 @@
     "komodo",
     "multicoin",
     "wallet",
-    "spv",
-    "jumblr"
+    "spv"
   ],
   "author": {
     "name": "Komodo Platform Team",
@@ -46,6 +45,7 @@
     "bitcoinjs-lib-pos": "git+https://github.com/KomodoPlatform/bitcoinjs-lib-pos",
     "bitcoinjs-lib-zcash": "git+https://github.com/pbca26/bitcoinjs-lib#zcash",
     "bitgo-utxo-lib": "git+https://github.com/pbca26/bitgo-utxo-lib.git",
+    "bitgo-utxo-lib-groestl": "git+https://github.com/SuperNETorg/bitgo-utxo-lib",
     "bluebird": "^3.4.7",
     "body-parser": "^1.15.2",
     "buffer-reverse": "^1.0.1",
