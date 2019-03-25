@@ -49,6 +49,8 @@ const assetChainPorts = {
   LUMBER: 26301,
   KSB: 21066,
   OUR: 45672,
+  RICK: 28223,
+  MORTY: 63812,
 };
 
 module.exports = assetChainPorts;

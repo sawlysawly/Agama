@@ -200,16 +200,16 @@ const chainParams = {
 			'94.130.224.11',
 		],
 	},
-        LUMBER: {
-                ac_algo: 'verushash',
-                ac_veruspos: 80,
-                ac_cc: 2,
-                ac_supply: 1260000,
-                ac_reward: 470000000,
-                ac_halving: 2100000,
-                addnode: '149.202.84.141',
-                genproclimit: true,
-        },
+	LUMBER: {
+		ac_algo: 'verushash',
+		ac_veruspos: 80,
+		ac_cc: 2,
+		ac_supply: 1260000,
+		ac_reward: 470000000,
+		ac_halving: 2100000,
+		addnode: '149.202.84.141',
+		genproclimit: true,
+	},
 	KSB: {
 		ac_supply: 1000000000,
 		ac_end: 1,
@@ -232,6 +232,18 @@ const chainParams = {
 			'37.187.225.231',
 			'217.182.129.38',
 		],
+	},
+	RICK: {
+		ac_supply: 90000000000,
+		ac_reward: 100000000,
+		ac_cc: 3,
+		addnode: '138.201.136.145',
+	},
+	MORTY: {
+		ac_supply: 90000000000,
+		ac_reward: 100000000,
+		ac_cc: 3,
+		addnode: '138.201.136.145',
 	},
 };
 
