@@ -11,140 +11,32 @@ const {
   seedToPriv,
   getAddressVersion,
   addressVersionCheck,
+  seedToWif,
+  wifToWif,
+  fromWif,
+  stringToWif,
 } = require('agama-wallet-lib/src/keys');
 const networks = require('agama-wallet-lib/src/bitcoinjs-networks');
 
 module.exports = (api) => {
   api.wifToWif = (wif, network) => {
     const _network = api.getNetworkData(network.toLowerCase());
-    const key = _network.isZcash ? new bitcoinZcash.ECPair.fromWIF(wif, _network, true) : new bitcoin.ECPair.fromWIF(wif, _network, true);
+    const key = stringToWif(wif, _network, true);
 
     return {
-      pub: key.getAddress(),
-      priv: key.toWIF(),
-      pubHex: key.getPublicKeyBuffer().toString('hex'),
+      pub: key.pub,
+      priv: key.priv,
+      pubHex: key.pubHex,
       fromWif: api.fromWif(wif, _network),
     };
   }
 
   // src: https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/src/ecpair.js#L62
-  api.fromWif = (string, network, checkVersion) => {
-    const decoded = wif.decode(string);
-    const version = decoded.version;
-    
-    if (!network) throw new Error('Unknown network version');
-    
-    if (checkVersion) {
-      if (!network) throw new Error('Unknown network version');
-      if (network.wifAlt && version !== network.wif && network.wifAlt.indexOf(version) === -1) throw new Error('Invalid network version');
-      if (!network.wifAlt && version !== network.wif) throw new Error('Invalid network version');
-    }
-  
-    const d = bigi.fromBuffer(decoded.privateKey);
-
-    const masterKP = network.isZcash ? new bitcoinZcash.ECPair(d, null, {
-      compressed: !decoded.compressed,
-      network,
-    }) : new bitcoin.ECPair(d, null, {
-      compressed: !decoded.compressed,
-      network,
-    });
-    
-    if (network.wifAlt) {
-      let altKP = [];
-      
-      for (let i = 0; i < network.wifAlt.length; i++) {
-        let _network = JSON.parse(JSON.stringify(network));
-        _network.wif = network.wifAlt[i];
-
-        const _altKP = network.isZcash ? new bitcoinZcash.ECPair(d, null, {
-          compressed: !decoded.compressed,
-          network: _network,
-        }) : new bitcoin.ECPair(d, null, {
-          compressed: !decoded.compressed,
-          network: _network,
-        });
-
-        altKP.push({
-          pub: _altKP.getAddress(),
-          priv: _altKP.toWIF(),
-          version: network.wifAlt[i],
-        });
-      }
-
-      return {
-        inputKey: decoded,
-        master: {
-          pub: masterKP.getAddress(),
-          priv: masterKP.toWIF(),
-          version: network.wif,
-        },
-        alt: altKP,
-      };
-    } else {
-      return {
-        inputKey: decoded,
-        master: {
-          pub: masterKP.getAddress(),
-          priv: masterKP.toWIF(),
-          version: network.wif,
-        },
-      };
-    }  
-  };
+  api.fromWif = fromWif;
 
   api.seedToWif = (seed, network, iguana) => {
-    let bytes;
-
-    // legacy seed edge case
-    if (process.argv.indexOf('spvold=true') > -1) {
-      bytes = buggySha256(seed, { asBytes: true });
-    } else {
-      const hash = sha256.create().update(seed);
-      bytes = hash.array();
-    }
-
-    if (iguana) {
-      bytes[0] &= 248;
-      bytes[31] &= 127;
-      bytes[31] |= 64;
-    }
-
-    const d = bigi.fromBuffer(bytes);
     const _network = network.hasOwnProperty('pubKeyHash') ? network : api.getNetworkData(network.toLowerCase());
-    let keyPair = _network.isZcash ? new bitcoinZcash.ECPair(d, null, { network: _network }) : new bitcoin.ECPair(d, null, { network: _network });
-    let keys = {
-      pub: keyPair.getAddress(),
-      priv: keyPair.toWIF(),
-      pubHex: keyPair.getPublicKeyBuffer().toString('hex'),
-      fromWif: api.fromWif(keyPair.toWIF(), _network),
-    };
-
-    let isWif = false;
-
-    try {
-      bs58check.decode(seed);
-      isWif = true;
-    } catch (e) {}
-
-    if (isWif) {
-      try {
-        keyPair = _network.isZcash ? new bitcoinZcash.ECPair.fromWIF(seed, _network, true) : new bitcoin.ECPair.fromWIF(seed, _network, true);
-        keys = {
-          priv: keyPair.toWIF(),
-          pub: keyPair.getAddress(),
-          pubHex: keyPair.getPublicKeyBuffer().toString('hex'),
-          fromWif: api.fromWif(keyPair.toWIF(), _network),
-        };
-      } catch (e) {}
-    }
-
-    /*api.log(`seed: ${seed}`, true);
-    api.log(`network ${network}`, true);
-    api.log(`seedtowif priv key ${keys.priv}`, true);
-    api.log(`seedtowif pub key ${keys.pub}`, true);*/
-
-    return keys;
+    return stringToWif(seed, _network, true);
   }
 
   api.get('/electrum/wiftopub', (req, res, next) => {

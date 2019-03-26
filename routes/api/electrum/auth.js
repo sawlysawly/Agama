@@ -68,7 +68,7 @@ module.exports = (api) => {
           if (isWif) {
             try {
               const _network = api.getNetworkData(key.toLowerCase());
-              const _key = stringToWif(_seed, _network, true);
+              const _key = stringToWif(_seed, _network, isIguana);
               keys = {
                 priv: _key.priv,
                 pub: _key.pub,
