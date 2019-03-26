@@ -27,12 +27,9 @@ module.exports = (api) => {
       pub: key.pub,
       priv: key.priv,
       pubHex: key.pubHex,
-      fromWif: api.fromWif(wif, _network),
+      fromWif: fromWif(wif, _network),
     };
   }
-
-  // src: https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/src/ecpair.js#L62
-  api.fromWif = fromWif;
 
   api.seedToWif = (seed, network, iguana) => {
     const _network = network.hasOwnProperty('pubKeyHash') ? network : api.getNetworkData(network.toLowerCase());
@@ -48,7 +45,7 @@ module.exports = (api) => {
         priv: key.toWIF(),
         pub: key.getAddress(),
         pubHex: key.getPublicKeyBuffer().toString('hex'),
-        fromWif: api.fromWif(key.toWIF(), _network),
+        fromWif: fromWif(key.toWIF(), _network),
       };
 
       const retObj = {
@@ -100,20 +97,6 @@ module.exports = (api) => {
       res.end(JSON.stringify(retObj));
     }
   });
-
-  api.pubkeyToAddress = (pubkey, coin) => {
-    try {
-      const publicKey = new Buffer(pubkey, 'hex');
-      const publicKeyHash = bitcoin.crypto.hash160(publicKey);
-      const _network = api.electrumJSNetworks[coin];
-      const address =  _network.isZcash ? bitcoinZcash.address.toBase58Check(publicKeyHash, api.electrumJSNetworks[coin].pubKeyHash) : bitcoin.address.toBase58Check(publicKeyHash, api.electrumJSNetworks[coin].pubKeyHash);
-      api.log(`convert pubkey ${pubkey} -> ${address}`, 'pubkey');
-      return address;
-    } catch (e) {
-      api.log('convert pubkey error: ' + e);
-      return false;
-    }
-  };
 
   api.post('/electrum/seedtowif', (req, res, next) => {
     if (api.checkToken(req.body.token)) {
