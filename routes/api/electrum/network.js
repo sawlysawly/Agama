@@ -145,10 +145,11 @@ module.exports = (api) => {
         resolve(api.electrumServersV1_4[`${ip}:${port}:${proto}`]);
       } else {
         ecl.connect();
-        ecl.serverVersion()
+        ecl.serverVersion('', '1.0')
         .then((serverData) => {
-          ecl.close();
           let serverVersion = 0;
+
+          ecl.close();
           api.log('getServerVersion non-cached', 'electrum.version.check');
 
           if (serverData &&
