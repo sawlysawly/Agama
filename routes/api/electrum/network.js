@@ -192,15 +192,16 @@ module.exports = (api) => {
         });
 
         ecl.connect();
-        ecl.serverVersion()
+        ecl.serverVersion('', '1.0')
         .then((serverData) => {
           ecl.close();
           api.log('serverData', 'spv.server.test');
-          api.log(serverData, 'spv.server,test');
+          api.log(serverData, 'spv.server.test');
 
-          if (serverData &&
+          if ((serverData &&
               typeof serverData === 'string' &&
-              serverData.indexOf('Electrum') > -1) {
+              serverData.indexOf('Electrum') > -1) ||
+              (serverData && JSON.stringify(serverData).indexOf('unsupported protocol version: 1.0'))) {
             const retObj = {
               msg: 'success',
               result: true,
