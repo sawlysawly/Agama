@@ -184,6 +184,12 @@ module.exports = (api) => {
 
   api.get('/electrum/servers/test', (req, res, next) => {
     if (api.checkToken(req.query.token)) {
+      api.getServerVersion(
+        req.query.port,
+        req.query.ip,
+        req.query.proto,
+      );
+
       async function _serverTest() {
         const ecl = await api.ecl(null, {
           port: req.query.port,
