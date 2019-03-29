@@ -17,7 +17,7 @@ module.exports = (api) => {
       // 2) check targets integrity
       async function _createRawTxMultOut() {
         const network = req.body.network || api.findNetworkObj(req.body.coin);
-        const ecl = await api.ecl(network);
+        let ecl = await api.ecl(network);
         const initTargets = JSON.parse(JSON.stringify(req.body.targets));
         const changeAddress = req.body.change;
         const push = req.body.push;
@@ -41,7 +41,6 @@ module.exports = (api) => {
 
         api.log('electrum createrawtx =>', 'spv.createrawtx');
 
-        ecl.connect();
         api.listunspent(
           ecl,
           changeAddress,
@@ -351,7 +350,7 @@ module.exports = (api) => {
                   res.end(JSON.stringify(retObj));
                 } else {
                   async function _pushtx() {
-                    const ecl = await api.ecl(network);
+                    ecl = await api.ecl(network);
 
                     ecl.connect();
                     ecl.blockchainTransactionBroadcast(_rawtx)
