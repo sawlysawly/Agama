@@ -1,6 +1,6 @@
 const bitcoinJS = require('bitcoinjs-lib');
 const bitcoinJSForks = require('bitcoinforksjs-lib');
-const bitcoinZcash = require('bitcoinjs-lib-zcash');
+const bitcoinZcash = require('bitgo-utxo-lib');
 const bitcoinPos = require('bitcoinjs-lib-pos');
 const coinSelect = require('coinselect');
 const { estimateTxSize } = require('agama-wallet-lib/src/utils');
@@ -432,6 +432,7 @@ module.exports = (api) => {
                       }
                     });
                   }
+                  _pushtx();
                 }
               }
             }
@@ -513,6 +514,8 @@ module.exports = (api) => {
       }
     }
 
+    tx.setVersion(4);
+
     if (network === 'komodo' ||
         network.toUpperCase() === 'KMD') {
       const _locktime = Math.floor(Date.now() / 1000) - 777;
@@ -535,7 +538,8 @@ module.exports = (api) => {
           key
         );
       } else {
-        tx.sign(i, key);
+        // tx.sign(i, key);
+        tx.sign(i, key, '', null, utxo[i].value);
       }
     }
 
