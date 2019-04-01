@@ -30,11 +30,11 @@ const chainParams = {
 	HODL: {
 		ac_supply: 9999999,
 	},
-        ILN: {
-                ac_supply: 10000000000,
-                ac_cc: 2,
-                addnode: '51.75.122.83',
-        },
+	ILN: {
+		ac_supply: 10000000000,
+		ac_cc: 2,
+		addnode: '51.75.122.83',
+	},
 	MSHARK: {
 		ac_supply: 1400000,
 	},
@@ -103,9 +103,6 @@ const chainParams = {
 		ac_supply: 216000000,
 		ac_sapling: 5000000,
 		addnode: '174.138.107.226',
-	},
-	VOTE2018: {
-		ac_supply: 600000000,
 	},
 	NINJA: {
 		ac_supply: 100000000,
@@ -244,6 +241,11 @@ const chainParams = {
 		ac_reward: 100000000,
 		ac_cc: 3,
 		addnode: '138.201.136.145',
+	},
+	VOTE2019: {
+		ac_supply: 123651638,
+		ac_public: 1,
+		addnode: '95.213.238.98',
 	},
 };
 

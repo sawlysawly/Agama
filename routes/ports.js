@@ -30,7 +30,6 @@ const assetChainPorts = {
   MESH: 9455,
   AXO: 12927,
   ETOMIC: 10271,
-  VOTE2018: 15488,
   NINJA: 8427,
   BTCH: 8800,
   BNTN: 14358,
@@ -51,6 +50,7 @@ const assetChainPorts = {
   OUR: 45672,
   RICK: 28223,
   MORTY: 63812,
+  VOTE2019: 45888,
 };
 
 module.exports = assetChainPorts;
