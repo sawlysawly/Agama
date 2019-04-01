@@ -75,10 +75,8 @@ module.exports = (api) => {
 
       httpRequest();
     } else if (
-      selection === 'REVS' ||
-      selection === 'JUMRLR' ||
-      selection === 'BTCH' ||
-      selection === 'PIRATE'
+      selection !== 'KMD' &&
+      chainParams[selection]
     ) {
       herdData = {
         ac_name: selection,
