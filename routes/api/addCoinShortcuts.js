@@ -83,7 +83,6 @@ module.exports = (api) => {
         ac_options: [
           '-daemon=0',
           '-server',
-          `-ac_name=${selection}`,
         ],
       };
       herdData = prepAcOptions(herdData, selection);
@@ -101,14 +100,12 @@ module.exports = (api) => {
         ac_options: [
           '-daemon=0',
           '-server',
-          `-ac_name=REVS`,
         ],
       }, {
         ac_name: 'JUMBLR',
         ac_options: [
           '-daemon=0',
           '-server',
-          `-ac_name=JUMBLR`,
         ],
       }];
 
