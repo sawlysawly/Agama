@@ -216,6 +216,10 @@ module.exports = (api) => {
   }
 
   api.getTransactionDecoded = (txid, network, data) => {
+    if (!api.electrumCache[network]) {
+      api.electrumCache[network] = {};
+    }
+
     if (!api.electrumCache[network].txDecoded) {
       api.electrumCache[network].txDecoded = {};
     }
