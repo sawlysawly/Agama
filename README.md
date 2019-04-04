@@ -12,7 +12,7 @@ Clone Agama Desktop App with EasyDEX-GUI submodule
 with this command you git clone agama - but explicitly just the dev branch (therefore --single-branch) which we also use for the release packages.
 2) cd agama && cd gui/EasyDEX-GUI/
 3) git checkout dev && git pull origin dev
-4) npm install && npm install webpack
+4) npm install
 5) ./binary_artifacts.sh
 6) npm start in project root folder
 7) cd gui/EasyDEX-GUI/react/src
